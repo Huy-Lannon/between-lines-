@@ -597,16 +597,19 @@
             background: rgba(250, 247, 242, 0.9);
             border: 1px solid var(--whisper);
             color: var(--charcoal);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
+            padding: 10px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 400;
         }
 
         .day-nav-btn:hover:not(:disabled) {
@@ -750,7 +753,7 @@
     <!-- Main App Page -->
     <div class="app-page" id="appPage">
         <div class="streak-counter" id="streakCounter">
-            <span class="streak-icon"></span>
+            <span class="streak-icon">Current Streak:</span>
             <span id="streakNumber">0</span>
         </div>
         <button class="settings-btn" id="settingsBtn">Settings</button>
@@ -759,10 +762,10 @@
         
         <!-- Day Navigation (Testing Only - Remove before public launch) -->
         <div class="day-nav left">
-            <button class="day-nav-btn" id="prevDayBtn">â†</button>
+            <button class="day-nav-btn" id="prevDayBtn">&larr; Previous</button>
         </div>
         <div class="day-nav right">
-            <button class="day-nav-btn" id="nextDayBtn">â†’</button>
+            <button class="day-nav-btn" id="nextDayBtn">Next &rarr;</button>
         </div>
         
         <div class="container">
