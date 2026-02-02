@@ -968,8 +968,13 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         
+        // Make globally accessible immediately
+        window.debugAuth = auth;
+        window.debugDB = db;
+        
         // Initialize messaging - must be done at top level
         let messaging = null;
+        window.debugMessaging = messaging;
         
         // Initialize messaging after page loads
         async function initializeMessaging() {
@@ -1011,11 +1016,6 @@
         console.log('Auth object:', auth);
         console.log('Auth domain:', auth.config.authDomain);
         console.log('DB object:', db);
-        
-        // Make auth available globally for debugging
-        window.debugAuth = auth;
-        window.debugDB = db;
-        window.debugMessaging = messaging;
 
         // CONTENT DATABASE - Add more days here
         const contentDatabase = {
@@ -1791,10 +1791,10 @@
 
         // Load notification settings and schedule on page load
         window.addEventListener('load', async () => {
-            const user = auth.currentUser;
+            const user = window.debugAuth ? window.debugAuth.currentUser : null;
             if (user && Notification.permission === 'granted') {
                 try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    const userDoc = await getDoc(doc(window.debugDB, 'users', user.uid));
                     if (userDoc.exists() && userDoc.data().notificationTime) {
                         await scheduleDailyNotification(userDoc.data().notificationTime);
                     }
