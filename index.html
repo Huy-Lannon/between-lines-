@@ -1716,13 +1716,14 @@
                     // Get FCM token
                     try {
                         // Wait for messaging to be initialized
-                        if (!messaging) {
+                        const msg = window.debugMessaging;
+                        if (!msg) {
                             console.error('Messaging not initialized yet');
                             return false;
                         }
                         
                         // Get FCM token with your VAPID key
-                        const currentToken = await getToken(messaging, {
+                        const currentToken = await getToken(msg, {
                             vapidKey: 'BII98JRmwmT_X5fkWsgVojbD6hGEHYmVEHRKFasf38sA35DPgRjXG1z6v7JfTghIpurVDSkp8gxbxf3YqUlR0Ag'
                         });
                         
