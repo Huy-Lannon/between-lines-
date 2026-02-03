@@ -1507,6 +1507,9 @@
                         settingsMessage.textContent = 'Please enable notifications in your browser settings';
                         return;
                     }
+                } else {
+                    // Permission already granted - just get/save FCM token
+                    await requestNotificationPermission();
                 }
 
                 // Save notification time to Firestore
