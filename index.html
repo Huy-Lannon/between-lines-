@@ -1515,10 +1515,16 @@
                     await requestNotificationPermission();
                 }
 
-                // Save notification time to Firestore
+                // Save notification time AND timezone offset to Firestore
+                // getTimezoneOffset() returns minutes BEHIND UTC (e.g., UTC+2 returns -120)
+                const timezoneOffset = new Date().getTimezoneOffset();
+
                 await setDoc(doc(db, 'users', user.uid), {
-                    notificationTime: time
+                    notificationTime: time,
+                    timezoneOffset: timezoneOffset
                 }, { merge: true });
+
+                console.log(`Saved notification time: ${time}, timezone offset: ${timezoneOffset}`);
 
                 // Schedule the notification
                 await scheduleDailyNotification(time);
