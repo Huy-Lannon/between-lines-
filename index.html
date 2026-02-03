@@ -976,7 +976,10 @@
         
         // Make auth available globally for debugging
         window.debugAuth = auth;
-        window.debugDB = db;        
+        window.debugDB = db;
+        window.getToken = getToken;
+        window.setDoc = setDoc;
+        window.doc = doc;        
         // Initialize messaging - must be done at top level
         let messaging = null;
         
@@ -1723,7 +1726,7 @@
                         }
                         
                         // Get FCM token with your VAPID key
-                        const currentToken = await getToken(msg, {
+                        const currentToken = await window.getToken(msg, {
                             vapidKey: 'BII98JRmwmT_X5fkWsgVojbD6hGEHYmVEHRKFasf38sA35DPgRjXG1z6v7JfTghIpurVDSkp8gxbxf3YqUlR0Ag'
                         });
                         
@@ -1733,7 +1736,7 @@
                             // Save token to Firestore for server-side notifications
                             const user = window.debugAuth ? window.debugAuth.currentUser : null;
                             if (user) {
-                                await setDoc(doc(window.debugDB, 'users', user.uid), {
+                                await window.setDoc(window.doc(window.debugDB, 'users', user.uid), {
                                     fcmToken: currentToken
                                 }, { merge: true });
                                 console.log('FCM token saved to Firestore');
